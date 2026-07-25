@@ -1,0 +1,19 @@
+groups:
+  - name: batcave_alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Lūžo servisas: {{ $labels.instance }}"
+          description: "Seni, tavo {{ $labels.job }} ({{ $labels.instance }}) nebeatsako. Tvarkykis!"
+      - alert: WebsiteDown
+        expr: probe_success == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Lūžo servisas: {{ $labels.service }}"
+          description: "Seni, tavo {{ $labels.service }} ({{ $labels.instance }}) nebeatsako! Reikia keltis iš lovos."

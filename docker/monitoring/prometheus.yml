@@ -1,0 +1,87 @@
+global:
+  scrape_interval: 2m
+  evaluation_interval: 2m
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["prometheus:9090"]
+
+  - job_name: "monitoring-internal"
+    static_configs:
+      - targets: ["alertmanager:9093"]
+        labels:
+          service: "Alertmanager"
+      - targets: ["blackbox-exporter:9115"]
+        labels:
+          service: "Blackbox Exporter"
+      - targets: ["192.168.8.3:3000"]
+        labels:
+          service: "Grafana"
+
+  - job_name: "proxmox-host"
+    static_configs:
+      - targets: ["192.168.8.10:9100"]
+
+  - job_name: "proxmox-smart"
+    scrape_interval: 5m
+    static_configs:
+      - targets: ["192.168.8.10:9633"]
+
+  - job_name: "blackbox-http"
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets: ["http://192.168.8.9/admin"]
+        labels:
+          service: "Pi-hole"
+      - targets: ["http://192.168.8.8:2283"]
+        labels:
+          service: "Immich"
+      - targets: ["http://192.168.8.6:8096"]
+        labels:
+          service: "Jellyfin"
+      - targets: ["http://192.168.8.7:81"]
+        labels:
+          service: "Nginx Proxy Manager"
+      - targets: ["http://192.168.8.5"]
+        labels:
+          service: "TrueNAS Scale"
+      - targets: ["http://192.168.8.4:8080"]
+        labels:
+          service: "qBittorrent"
+      - targets: ["http://192.168.8.4:9696"]
+        labels:
+          service: "Prowlarr"
+      - targets: ["http://192.168.8.4:8989"]
+        labels:
+          service: "Sonarr"
+      - targets: ["http://192.168.8.4:7878"]
+        labels:
+          service: "Radarr"
+      - targets: ["http://192.168.8.4:5055"]
+        labels:
+          service: "Jellyseerr"
+      - targets: ["http://192.168.8.4:6767"]
+        labels:
+          service: "Bazarr"
+      - targets: ["http://192.168.8.4:8191"]
+        labels:
+          service: "Flaresolverr"
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - "alertmanager:9093"
+
+rule_files:
+  - "alert_rules.yml"

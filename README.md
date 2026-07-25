@@ -36,3 +36,16 @@
 | **Bazarr**              | Automatically downloads subtitles for media library            |
 | **Prometheus**          | Scrapes and stores metrics from servers and containers              |
 | **Grafana**             | Creates clean dashboards to visualize server stats and performance  |
+
+## Repository Structure
+
+```
+proxmox/
+  scripts/          Host scripts: LXC auto-updates, host config backup, nag removal
+  README.md         What runs when (cron + backup schedule)
+docker/
+  media-stack/      Compose for the *arr stack, qBittorrent behind gluetun VPN
+  monitoring/       Compose + configs for Prometheus, Grafana, Alertmanager
+```
+
+Secrets (VPN credentials, webhook URLs) are kept out of git — see `.env.example` files.
