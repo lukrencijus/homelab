@@ -48,4 +48,4 @@ docker/
   monitoring/       Compose + configs for Prometheus, Grafana, Alertmanager
 ```
 
-Secrets (VPN credentials, webhook URLs) are kept out of git — see `.env.example` files.
+Secrets (VPN credentials, webhook URLs) are kept out of git, see `.env.example` files.

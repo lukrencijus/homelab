@@ -16,5 +16,5 @@ Scripts and scheduled jobs running on the Proxmox VE host (`batcave`).
 | :--- | :--- |
 | Sat 02:30 | Host config backup → TrueNAS (`/etc/cron.d/backup-host-config`) |
 | Sat 03:00 | vzdump snapshot backup of all guests → TrueNAS NFS share, zstd, keep last 4 (Proxmox backup job) |
-| Sun 00:00 | `update-lxcs.sh` — update all LXC containers |
+| Sun 00:00 | `update-lxcs.sh` updates all LXC containers |
 | 1st of month 04:00 | Host reboot |
