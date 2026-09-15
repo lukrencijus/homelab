@@ -29,6 +29,7 @@ vgs > "$META/vgs.txt" 2>&1
 tar czf "$OUT" \
     --absolute-names \
     --ignore-failed-read \
+    --exclude=/usr/local/bin/smartctl_exporter \
     /etc/pve \
     /etc/network/interfaces /etc/network/interfaces.d \
     /etc/sysctl.conf /etc/sysctl.d \
@@ -36,7 +37,11 @@ tar czf "$OUT" \
     /etc/hosts /etc/hostname /etc/resolv.conf \
     /etc/fstab \
     /etc/ssh /root/.ssh \
-    /etc/cron.d /etc/crontab \
+    /etc/cron.d /etc/crontab /var/spool/cron/crontabs \
+    /etc/systemd/system \
+    /usr/local/sbin \
+    /usr/local/bin \
+    /etc/update-lxcs.conf \
     /etc/apt/sources.list /etc/apt/sources.list.d \
     /etc/default/grub /etc/modprobe.d /etc/modules \
     /etc/lvm/lvm.conf \
