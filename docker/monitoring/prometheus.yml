@@ -69,6 +69,12 @@ scrape_configs:
       - targets: ["http://192.168.8.4:8191"]
         labels:
           service: "Flaresolverr"
+      - targets: ["http://192.168.8.12"]
+        labels:
+          service: "Vaultwarden"
+      - targets: ["http://192.168.8.13/api/v1/info/status"]
+        labels:
+          service: "Stirling-PDF"
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
