@@ -1,0 +1,9 @@
+# NFS lines from the host /etc/fstab (not the whole file).
+# The host mounts the TrueNAS shares and bind-mounts them into LXCs (mpX).
+#
+# soft + timeo/retrans: if TrueNAS hangs, I/O eventually errors out instead of
+# leaving processes (and the host) stuck in D state forever.
+# x-systemd.automount: boot doesn't block waiting for the NAS VM to come up.
+192.168.8.5:/mnt/HDD2000/media/photos   /mnt/immich     nfs4 soft,timeo=600,retrans=5,noatime,_netdev,x-systemd.automount,proto=tcp 0 0
+192.168.8.5:/mnt/HDD2000/media/movies   /mnt/jellyfin   nfs4 soft,timeo=600,retrans=5,noatime,_netdev,x-systemd.automount,proto=tcp 0 0
+192.168.8.5:/mnt/HDD2000/media/tv_shows /mnt/jellyfin_2 nfs4 soft,timeo=600,retrans=5,noatime,_netdev,x-systemd.automount,proto=tcp 0 0

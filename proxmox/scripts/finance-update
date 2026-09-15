@@ -1,0 +1,3 @@
+#!/bin/bash
+# Runs the finance app updater inside LXC 109.
+exec pct exec 109 -- /usr/local/bin/finance-update "$@"

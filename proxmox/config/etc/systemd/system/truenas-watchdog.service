@@ -1,0 +1,7 @@
+[Unit]
+Description=TrueNAS VM (101) reachability watchdog
+After=network-online.target pve-guests.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/truenas-watchdog.sh
